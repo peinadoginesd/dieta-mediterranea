@@ -6,326 +6,163 @@
 <title>Plan Alimentación Mediterránea</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800;900&family=Lato:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --wine:#6b2d5b;--rose:#c2638e;--blush:#e8a0bf;--peach:#f5d0c5;
+    --cream:#fdf6f0;--bg:#fffaf7;--white:#ffffff;--dark:#3a2434;
+    --mid:#7a5f6f;--soft:#a8899a;--muted:#c4b0ba;--divider:#e8d8e0;
+    --light:#f7eff3;--sage:#7a9e7e;--sage-l:#d4e6d5;--gold:#c9a84c;
+  }
+  body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--dark);min-height:100vh}
+  .card{max-width:1100px;margin:0 auto;background:var(--white);overflow:hidden;box-shadow:0 4px 40px rgba(107,45,91,.08)}
 
-  :root {
-    --wine:    #6b2d5b;
-    --rose:    #c2638e;
-    --blush:   #e8a0bf;
-    --peach:   #f5d0c5;
-    --cream:   #fdf6f0;
-    --bg:      #fffaf7;
-    --white:   #ffffff;
-    --dark:    #3a2434;
-    --mid:     #7a5f6f;
-    --soft:    #a8899a;
-    --muted:   #c4b0ba;
-    --divider: #e8d8e0;
-    --light:   #f7eff3;
-    --gold:    #c9a84c;
-    --sage:    #7a9e7e;
-    --sage-l:  #d4e6d5;
-  }
+  /* HEADER */
+  .header{background:linear-gradient(135deg,var(--wine),#8b3a6e);padding:40px 60px 34px;display:flex;justify-content:space-between;align-items:flex-end;position:relative;overflow:hidden}
+  .header-deco{position:absolute;top:-40px;right:-40px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,.04)}
+  .header-deco2{position:absolute;bottom:-60px;right:80px;width:150px;height:150px;border-radius:50%;background:rgba(255,255,255,.03)}
+  .title-block h1{font-family:'Playfair Display',serif;font-size:54px;font-weight:800;line-height:1;color:#fdf0ec}
+  .title-block h1 .script{font-weight:400;font-style:italic;color:var(--blush)}
+  .title-block .subtitle{font-size:11px;color:rgba(253,240,236,.45);letter-spacing:4px;text-transform:uppercase;margin-top:14px}
+  .header-right{display:flex;flex-direction:column;align-items:flex-end;gap:14px;position:relative;z-index:1}
+  .tag-row{display:flex;gap:6px;flex-wrap:wrap}
+  .tag{border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.5);padding:5px 14px;font-size:9px;letter-spacing:2px;text-transform:uppercase;border-radius:20px}
+  .tag.active{border-color:var(--peach);background:var(--peach);color:var(--wine);font-weight:700}
 
-  body {
-    font-family: 'Lato', sans-serif;
-    background: var(--bg);
-    color: var(--dark);
-    min-height: 100vh;
-  }
+  /* MAIN TABS */
+  .main-tabs{display:flex;background:var(--dark);border-bottom:2px solid var(--wine);overflow-x:auto}
+  .main-tab{padding:14px 24px;color:rgba(255,255,255,.5);font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:600;cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .3s;user-select:none}
+  .main-tab:hover{color:rgba(255,255,255,.7)}
+  .main-tab.active{color:var(--peach);border-bottom-color:var(--peach)}
 
-  .card { max-width: 1100px; margin: 0 auto; background: var(--white); overflow: hidden; box-shadow: 0 4px 40px rgba(107,45,91,0.08); }
+  /* PAGES */
+  .page{display:none;animation:fadeIn .35s ease}
+  .page.active{display:block}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 
-  /* ── HEADER ── */
-  .header {
-    background: linear-gradient(135deg, var(--wine), #8b3a6e);
-    padding: 44px 60px 38px;
-    display: flex; justify-content: space-between; align-items: flex-end;
-    position: relative; overflow: hidden;
-  }
-  .header-deco {
-    position: absolute; top: -40px; right: -40px;
-    width: 200px; height: 200px; border-radius: 50%;
-    background: rgba(255,255,255,0.04);
-  }
-  .header-deco2 {
-    position: absolute; bottom: -60px; right: 80px;
-    width: 150px; height: 150px; border-radius: 50%;
-    background: rgba(255,255,255,0.03);
-  }
-  .title-block h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 54px; font-weight: 800; line-height: 1;
-    color: #fdf0ec; letter-spacing: -0.5px;
-  }
-  .title-block h1 .script {
-    font-weight: 400; font-style: italic; color: var(--blush);
-  }
-  .title-block .subtitle {
-    font-size: 11px; color: rgba(253,240,236,0.45);
-    letter-spacing: 4px; text-transform: uppercase; margin-top: 14px;
-  }
-  .header-right { display: flex; flex-direction: column; align-items: flex-end; gap: 14px; position: relative; z-index: 1; }
-  .tag-row { display: flex; gap: 6px; flex-wrap: wrap; }
-  .tag {
-    border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.5);
-    padding: 5px 14px; font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
-    border-radius: 20px;
-  }
-  .tag.active { border-color: var(--peach); background: var(--peach); color: var(--wine); font-weight: 700; }
+  /* SECTION HEADER */
+  .sec-hdr{padding:10px 60px;border-bottom:1px solid var(--divider);background:var(--cream);display:flex;align-items:center;gap:13px}
+  .sec-num{font-family:'Playfair Display',serif;font-size:11px;font-weight:700;color:var(--muted);letter-spacing:2px;width:20px}
+  .sec-title{font-family:'Playfair Display',serif;font-size:13px;font-weight:700;color:var(--wine);letter-spacing:2px;text-transform:uppercase}
+  .sec-line{flex:1;height:1px;background:var(--divider)}
 
-  /* ── DAILY BASE ── */
-  .base-section {
-    padding: 28px 60px;
-    background: var(--light);
-    border-bottom: 1px solid var(--divider);
-  }
-  .base-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 14px; font-weight: 700; color: var(--wine);
-    letter-spacing: 2px; text-transform: uppercase;
-    margin-bottom: 16px;
-    display: flex; align-items: center; gap: 12px;
-  }
-  .base-title::after { content: ''; flex: 1; height: 1px; background: var(--divider); }
-  .base-grid {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 10px;
-  }
-  .base-item {
-    display: flex; align-items: center; gap: 12px;
-    padding: 10px 14px;
-    background: var(--white);
-    border: 1px solid var(--divider);
-    border-radius: 10px;
-  }
-  .base-icon { font-size: 1.6em; min-width: 32px; text-align: center; }
-  .base-label { font-size: 12px; font-weight: 600; color: var(--dark); }
-  .base-detail { font-size: 10px; color: var(--soft); margin-top: 1px; }
+  /* BASE GRID */
+  .base-section{padding:28px 60px;background:var(--light);border-bottom:1px solid var(--divider)}
+  .base-title{font-family:'Playfair Display',serif;font-size:14px;font-weight:700;color:var(--wine);letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:12px}
+  .base-title::after{content:'';flex:1;height:1px;background:var(--divider)}
+  .base-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+  .base-item{display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--white);border:1px solid var(--divider);border-radius:10px}
+  .base-icon{font-size:1.6em;min-width:32px;text-align:center}
+  .base-label{font-size:12px;font-weight:600;color:var(--dark)}
+  .base-detail{font-size:10px;color:var(--soft);margin-top:1px}
 
-  /* ── FREQ STRIP ── */
-  .freq-strip {
-    display: grid; grid-template-columns: repeat(6, 1fr);
-    border-bottom: 2px solid var(--wine);
-  }
-  .freq-cell {
-    padding: 14px 10px; text-align: center;
-    border-right: 1px solid var(--divider);
-    background: var(--white);
-  }
-  .freq-cell:last-child { border-right: none; }
-  .freq-cell .fc-icon { font-size: 1.4em; margin-bottom: 4px; }
-  .freq-cell .fc-name { font-size: 9px; color: var(--mid); letter-spacing: 1px; text-transform: uppercase; font-weight: 600; }
-  .freq-cell .fc-val {
-    font-family: 'Playfair Display', serif;
-    font-size: 14px; font-weight: 700; color: var(--wine); margin-top: 2px;
-  }
+  /* FREQ STRIP */
+  .freq-strip{display:grid;grid-template-columns:repeat(6,1fr);border-bottom:2px solid var(--wine)}
+  .freq-cell{padding:14px 10px;text-align:center;border-right:1px solid var(--divider);background:var(--white)}
+  .freq-cell:last-child{border-right:none}
+  .fc-icon{font-size:1.4em;margin-bottom:4px}
+  .fc-name{font-size:9px;color:var(--mid);letter-spacing:1px;text-transform:uppercase;font-weight:600}
+  .fc-val{font-family:'Playfair Display',serif;font-size:14px;font-weight:700;color:var(--wine);margin-top:2px}
 
-  /* ── SECTION HEADER ── */
-  .sec-hdr {
-    padding: 10px 60px; border-bottom: 1px solid var(--divider);
-    background: var(--cream);
-    display: flex; align-items: center; gap: 13px;
-  }
-  .sec-num {
-    font-family: 'Playfair Display', serif;
-    font-size: 11px; font-weight: 700; color: var(--muted); letter-spacing: 2px; width: 20px;
-  }
-  .sec-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 13px; font-weight: 700; color: var(--wine); letter-spacing: 2px; text-transform: uppercase;
-  }
-  .sec-line { flex: 1; height: 1px; background: var(--divider); }
+  /* DAY TABS */
+  .tabs-wrap{padding:16px 60px 0;background:var(--white);border-bottom:1px solid var(--divider)}
+  .tabs{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
+  .dtab{padding:10px 20px;border-radius:25px 25px 0 0;border:1px solid var(--divider);border-bottom:none;background:var(--white);color:var(--mid);cursor:pointer;font-size:13px;font-weight:500;transition:all .3s;user-select:none}
+  .dtab:hover{background:var(--light)}
+  .dtab.active{background:var(--wine);color:var(--peach);border-color:var(--wine);font-weight:700}
 
-  /* ── DAY TABS ── */
-  .tabs-wrap {
-    padding: 16px 60px 0;
-    background: var(--white);
-    border-bottom: 1px solid var(--divider);
-  }
-  .tabs {
-    display: flex; gap: 6px; flex-wrap: wrap;
-    justify-content: center;
-  }
-  .tab {
-    padding: 10px 20px;
-    border-radius: 25px 25px 0 0;
-    border: 1px solid var(--divider);
-    border-bottom: none;
-    background: var(--white);
-    color: var(--mid);
-    cursor: pointer;
-    font-size: 13px;
-    font-weight: 500;
-    transition: all 0.3s;
-    user-select: none;
-  }
-  .tab:hover { background: var(--light); }
-  .tab.active {
-    background: var(--wine);
-    color: var(--peach);
-    border-color: var(--wine);
-    font-weight: 700;
-  }
+  /* DAY CONTENT */
+  .day-content{display:none;padding:28px 60px;background:var(--white);animation:fadeIn .35s ease}
+  .day-content.active{display:block}
+  .day-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--divider);position:relative}
+  .day-top::after{content:'';position:absolute;bottom:-1px;left:0;width:50px;height:2px;background:var(--rose)}
+  .day-name{font-family:'Playfair Display',serif;font-size:32px;font-weight:800;color:var(--wine);line-height:1}
+  .day-tag{font-size:10px;color:var(--soft);text-transform:uppercase;letter-spacing:1.5px;margin-top:5px}
 
-  /* ── DAY CONTENT ── */
-  .day-content {
-    display: none;
-    padding: 28px 60px;
-    background: var(--white);
-    animation: fadeIn 0.35s ease;
-  }
-  .day-content.active { display: block; }
+  /* MEAL CARDS */
+  .meals-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px}
+  .meal-card{padding:20px;border-radius:14px;border:1px solid var(--divider);transition:transform .2s,box-shadow .2s}
+  .meal-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(107,45,91,.08)}
+  .meal-card.am{background:#fffbf5;border-left:3px solid #f5a623}
+  .meal-card.pm{background:#f8fdf8;border-left:3px solid var(--sage)}
+  .meal-card.ev{background:#faf5fd;border-left:3px solid #9b59b6}
+  .meal-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+  .meal-emoji{font-size:1.4em}
+  .meal-time{font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;font-weight:700}
+  .meal-desc{font-size:13px;color:var(--dark);line-height:1.6}
 
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+  /* AVOID / TIPS / CHEAT */
+  .grid-2col{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--divider)}
+  .grid-3col{display:grid;grid-template-columns:1fr 1fr 1fr;border-bottom:1px solid var(--divider)}
+  .info-block{padding:24px 28px;border-right:1px solid var(--divider)}
+  .info-block:last-child{border-right:none}
+  .info-block.avoid-bg{background:#fdf2f2}
+  .info-block.tips-bg{background:var(--cream)}
+  .info-block.cheat-bg{background:#fef9f0}
+  .block-title{font-family:'Playfair Display',serif;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+  .block-title::after{content:'';flex:1;height:1px;background:var(--divider)}
+  .block-title.red{color:#c0392b}
+  .block-title.green{color:var(--sage)}
+  .block-title.gold{color:#b8860b}
+  .list-item{font-size:11px;color:var(--mid);padding:5px 0;border-bottom:1px solid rgba(0,0,0,.04);display:flex;align-items:center;gap:8px}
+  .list-item:last-child{border-bottom:none}
+  .dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+  .dot.red{background:#e57373}.dot.green{background:var(--sage)}.dot.gold{background:#daa520}
 
-  .day-top {
-    display: flex; justify-content: space-between; align-items: flex-start;
-    margin-bottom: 20px; padding-bottom: 14px; border-bottom: 1px solid var(--divider);
-    position: relative;
-  }
-  .day-top::after {
-    content: ''; position: absolute;
-    bottom: -1px; left: 0; width: 50px; height: 2px; background: var(--rose);
-  }
-  .day-name {
-    font-family: 'Playfair Display', serif;
-    font-size: 32px; font-weight: 800; color: var(--wine);
-    line-height: 1;
-  }
-  .day-tag {
-    font-size: 10px; color: var(--soft); text-transform: uppercase; letter-spacing: 1.5px; margin-top: 5px;
-  }
+  /* CHEAT MEAL HIGHLIGHT */
+  .cheat-highlight{background:linear-gradient(135deg,#fef9f0,#fff5e6);border:1px solid #f0d9a8;border-radius:14px;padding:22px;margin:16px 0}
+  .cheat-highlight h4{font-family:'Playfair Display',serif;font-size:16px;color:#b8860b;margin-bottom:10px}
+  .cheat-rules{font-size:12px;color:var(--mid);line-height:1.7}
 
-  /* ── MEAL CARDS ── */
-  .meals-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+  /* SHOPPING LIST */
+  .shop-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;border-bottom:1px solid var(--divider)}
+  .shop-cat{padding:20px 24px;border-right:1px solid var(--divider);background:var(--white)}
+  .shop-cat:nth-child(even){background:var(--bg)}
+  .shop-cat:last-child{border-right:none}
+  .shop-cat-title{font-family:'Playfair Display',serif;font-size:12px;font-weight:700;color:var(--wine);letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+  .shop-item{font-size:11.5px;color:var(--mid);padding:4px 0;display:flex;align-items:center;gap:8px}
+  .shop-cb{appearance:none;-webkit-appearance:none;width:14px;height:14px;border:1.5px solid var(--divider);border-radius:3px;background:var(--white);cursor:pointer;position:relative;flex-shrink:0}
+  .shop-cb:checked{background:var(--rose);border-color:var(--rose)}
+  .shop-cb:checked::after{content:'';position:absolute;left:3px;top:0;width:4px;height:8px;border:1.5px solid white;border-top:none;border-left:none;transform:rotate(45deg)}
 
-  .meal-card {
-    padding: 20px;
-    border-radius: 14px;
-    border: 1px solid var(--divider);
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-  .meal-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(107,45,91,0.08);
-  }
-  .meal-card.am { background: #fffbf5; border-left: 3px solid #f5a623; }
-  .meal-card.pm { background: #f8fdf8; border-left: 3px solid var(--sage); }
-  .meal-card.ev { background: #faf5fd; border-left: 3px solid #9b59b6; }
+  /* TRACKER */
+  .tracker{padding:24px 60px;background:var(--light);border-bottom:1px solid var(--divider)}
+  .tracker-title{font-family:'Playfair Display',serif;font-size:11px;font-weight:700;color:var(--wine);letter-spacing:3px;text-transform:uppercase;margin-bottom:14px}
+  .tracker-grid{display:grid;grid-template-columns:130px repeat(7,1fr);gap:0}
+  .tr-header{font-size:8px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;font-weight:700;text-align:center;padding:6px 4px;border-bottom:1px solid var(--divider)}
+  .tr-label{font-size:11px;color:var(--mid);padding:8px 4px;border-bottom:1px solid #f5edf0;display:flex;align-items:center}
+  .tr-check{text-align:center;padding:8px 4px;border-bottom:1px solid #f5edf0}
+  .cb{appearance:none;-webkit-appearance:none;width:16px;height:16px;border:1.5px solid var(--divider);border-radius:3px;background:var(--white);cursor:pointer;position:relative}
+  .cb:checked{background:var(--rose);border-color:var(--rose)}
+  .cb:checked::after{content:'';position:absolute;left:4px;top:1px;width:5px;height:9px;border:1.5px solid white;border-top:none;border-left:none;transform:rotate(45deg)}
 
-  .meal-header {
-    display: flex; align-items: center; gap: 10px;
-    margin-bottom: 12px;
-  }
-  .meal-emoji { font-size: 1.4em; }
-  .meal-time {
-    font-size: 9px; color: var(--muted); letter-spacing: 2px;
-    text-transform: uppercase; font-weight: 700;
-  }
-  .meal-desc { font-size: 13px; color: var(--dark); line-height: 1.6; }
+  /* FOOTER */
+  .footer{padding:18px 60px;background:var(--wine);display:flex;align-items:center;justify-content:space-between}
+  .footer-left{display:flex;gap:24px}
+  .fl{text-align:center}
+  .fl-v{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:var(--peach)}
+  .fl-l{font-size:8px;color:rgba(255,255,255,.4);letter-spacing:1.5px;text-transform:uppercase;margin-top:2px}
+  .fl-sep{width:1px;height:28px;background:rgba(255,255,255,.1);align-self:center}
+  .footer-note{font-size:9px;color:rgba(255,255,255,.35);font-style:italic;max-width:260px;text-align:right;line-height:1.5}
 
-  /* ── AVOID / TIPS ── */
-  .bottom-grid { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid var(--divider); }
-
-  .avoid-block { padding: 24px 28px 24px 60px; border-right: 1px solid var(--divider); background: #fdf2f2; }
-  .tips-block { padding: 24px 60px 24px 28px; background: var(--cream); }
-
-  .block-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
-    margin-bottom: 14px; display: flex; align-items: center; gap: 10px;
-  }
-  .block-title::after { content: ''; flex: 1; height: 1px; background: var(--divider); }
-  .avoid-block .block-title { color: #c0392b; }
-  .tips-block .block-title { color: var(--sage); }
-
-  .avoid-item, .tip-item {
-    font-size: 11px; color: var(--mid); padding: 5px 0;
-    border-bottom: 1px solid rgba(0,0,0,0.04);
-    display: flex; align-items: center; gap: 8px;
-  }
-  .avoid-item:last-child, .tip-item:last-child { border-bottom: none; }
-  .avoid-dot { width: 6px; height: 6px; border-radius: 50%; background: #e57373; flex-shrink: 0; }
-  .tip-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--sage); flex-shrink: 0; }
-
-  /* ── TRACKER ── */
-  .tracker {
-    padding: 24px 60px;
-    background: var(--light);
-    border-bottom: 1px solid var(--divider);
-  }
-  .tracker-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 11px; font-weight: 700; color: var(--wine);
-    letter-spacing: 3px; text-transform: uppercase; margin-bottom: 14px;
-  }
-  .tracker-grid {
-    display: grid; grid-template-columns: 130px repeat(7, 1fr);
-    gap: 0;
-  }
-  .tr-header {
-    font-size: 8px; color: var(--muted); letter-spacing: 1.5px;
-    text-transform: uppercase; font-weight: 700;
-    text-align: center; padding: 6px 4px;
-    border-bottom: 1px solid var(--divider);
-  }
-  .tr-label {
-    font-size: 11px; color: var(--mid); padding: 8px 4px;
-    border-bottom: 1px solid #f5edf0;
-    display: flex; align-items: center;
-  }
-  .tr-check {
-    text-align: center; padding: 8px 4px;
-    border-bottom: 1px solid #f5edf0;
-  }
-  .cb {
-    appearance: none; -webkit-appearance: none;
-    width: 16px; height: 16px;
-    border: 1.5px solid var(--divider); border-radius: 3px;
-    background: var(--white); cursor: pointer; position: relative;
-  }
-  .cb:checked { background: var(--rose); border-color: var(--rose); }
-  .cb:checked::after {
-    content: ''; position: absolute;
-    left: 4px; top: 1px; width: 5px; height: 9px;
-    border: 1.5px solid white; border-top: none; border-left: none;
-    transform: rotate(45deg);
-  }
-
-  /* ── FOOTER ── */
-  .footer {
-    padding: 18px 60px;
-    background: var(--wine);
-    display: flex; align-items: center; justify-content: space-between;
-  }
-  .footer-left { display: flex; gap: 24px; }
-  .fl { text-align: center; }
-  .fl-v { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 700; color: var(--peach); }
-  .fl-l { font-size: 8px; color: rgba(255,255,255,0.4); letter-spacing: 1.5px; text-transform: uppercase; margin-top: 2px; }
-  .fl-sep { width: 1px; height: 28px; background: rgba(255,255,255,0.1); align-self: center; }
-  .footer-note { font-size: 9px; color: rgba(255,255,255,0.35); font-style: italic; max-width: 260px; text-align: right; line-height: 1.5; }
-
-  /* ── RESPONSIVE ── */
-  @media (max-width: 700px) {
-    .header { padding: 28px 20px 24px; flex-direction: column; align-items: flex-start; gap: 16px; }
-    .title-block h1 { font-size: 36px; }
-    .header-right { align-items: flex-start; }
-    .base-section, .sec-hdr, .tracker, .tabs-wrap { padding-left: 20px; padding-right: 20px; }
-    .day-content { padding: 20px; }
-    .meals-grid { grid-template-columns: 1fr; }
-    .bottom-grid { grid-template-columns: 1fr; }
-    .avoid-block { border-right: none; border-bottom: 1px solid var(--divider); padding: 20px; }
-    .tips-block { padding: 20px; }
-    .freq-strip { grid-template-columns: repeat(3, 1fr); }
-    .footer { flex-direction: column; gap: 16px; padding: 18px 20px; }
-    .footer-left { flex-wrap: wrap; justify-content: center; }
-    .footer-note { text-align: center; max-width: 100%; }
-    .tracker-grid { grid-template-columns: 100px repeat(7, 1fr); }
-    .tab { padding: 8px 14px; font-size: 12px; }
+  /* RESPONSIVE */
+  @media(max-width:700px){
+    .header{padding:28px 20px 24px;flex-direction:column;align-items:flex-start;gap:16px}
+    .title-block h1{font-size:36px}
+    .header-right{align-items:flex-start}
+    .base-section,.sec-hdr,.tracker,.tabs-wrap{padding-left:20px;padding-right:20px}
+    .day-content{padding:20px}
+    .meals-grid{grid-template-columns:1fr}
+    .grid-2col,.grid-3col{grid-template-columns:1fr}
+    .info-block{border-right:none;border-bottom:1px solid var(--divider)}
+    .freq-strip{grid-template-columns:repeat(3,1fr)}
+    .shop-grid{grid-template-columns:1fr}
+    .shop-cat{border-right:none;border-bottom:1px solid var(--divider)}
+    .footer{flex-direction:column;gap:16px;padding:18px 20px}
+    .footer-left{flex-wrap:wrap;justify-content:center}
+    .footer-note{text-align:center;max-width:100%}
+    .tracker-grid{grid-template-columns:100px repeat(7,1fr)}
+    .main-tab{padding:12px 16px;font-size:10px}
+    .dtab{padding:8px 14px;font-size:12px}
   }
 </style>
 </head>
@@ -334,8 +171,7 @@
 
   <!-- HEADER -->
   <div class="header">
-    <div class="header-deco"></div>
-    <div class="header-deco2"></div>
+    <div class="header-deco"></div><div class="header-deco2"></div>
     <div class="title-block">
       <h1>Dieta<br><span class="script">Mediterránea</span></h1>
       <div class="subtitle">Plan semanal · equilibrio · salud cardiovascular</div>
@@ -345,187 +181,347 @@
         <div class="tag active">7 días</div>
         <div class="tag">Equilibrada</div>
         <div class="tag">Corazón sano</div>
+        <div class="tag">Sin legumbres</div>
       </div>
     </div>
   </div>
 
-  <!-- DAILY BASE -->
-  <div class="base-section">
-    <div class="base-title">📌 Base diaria — todos los días</div>
-    <div class="base-grid">
-      <div class="base-item"><div class="base-icon">🫒</div><div><div class="base-label">Aceite de oliva virgen extra</div><div class="base-detail">4+ cucharadas · cocinar y aliñar</div></div></div>
-      <div class="base-item"><div class="base-icon">🥬</div><div><div class="base-label">Verduras y hortalizas</div><div class="base-detail">2+ raciones · una cruda en ensalada</div></div></div>
-      <div class="base-item"><div class="base-icon">🍎</div><div><div class="base-label">Fruta fresca</div><div class="base-detail">3 piezas mínimo al día</div></div></div>
-      <div class="base-item"><div class="base-icon">🌾</div><div><div class="base-label">Cereales integrales</div><div class="base-detail">Pan integral + arroz o pasta integral</div></div></div>
-      <div class="base-item"><div class="base-icon">🥜</div><div><div class="base-label">Frutos secos sin sal</div><div class="base-detail">1 puñado (30g) · nueces ideal</div></div></div>
-      <div class="base-item"><div class="base-icon">🥛</div><div><div class="base-label">Lácteos</div><div class="base-detail">2-3 raciones · yogur, leche, queso fresco</div></div></div>
-      <div class="base-item"><div class="base-icon">💧</div><div><div class="base-label">Agua</div><div class="base-detail">Bebida principal · café o infusiones OK</div></div></div>
+  <!-- MAIN TABS -->
+  <div class="main-tabs" id="mainTabs">
+    <div class="main-tab active" data-page="inicio">🏠 Inicio</div>
+    <div class="main-tab" data-page="menu">🍽 Menú Semanal</div>
+    <div class="main-tab" data-page="reco">💡 Recomendaciones</div>
+    <div class="main-tab" data-page="compra">🛒 Lista de la Compra</div>
+    <div class="main-tab" data-page="track">📊 Seguimiento</div>
+  </div>
+
+  <!-- ═══════════ PAGE: INICIO ═══════════ -->
+  <div id="page-inicio" class="page active">
+
+    <div class="base-section">
+      <div class="base-title">📌 Base diaria — todos los días</div>
+      <div class="base-grid">
+        <div class="base-item"><div class="base-icon">🫒</div><div><div class="base-label">Aceite de oliva virgen extra</div><div class="base-detail">4+ cucharadas · cocinar y aliñar</div></div></div>
+        <div class="base-item"><div class="base-icon">🥬</div><div><div class="base-label">Verduras y hortalizas</div><div class="base-detail">2+ raciones · una cruda en ensalada</div></div></div>
+        <div class="base-item"><div class="base-icon">🍎</div><div><div class="base-label">Fruta fresca</div><div class="base-detail">3 piezas mínimo al día</div></div></div>
+        <div class="base-item"><div class="base-icon">🌾</div><div><div class="base-label">Cereales integrales</div><div class="base-detail">Pan integral + arroz o pasta integral</div></div></div>
+        <div class="base-item"><div class="base-icon">🥜</div><div><div class="base-label">Frutos secos sin sal</div><div class="base-detail">1 puñado (30g) · nueces ideal</div></div></div>
+        <div class="base-item"><div class="base-icon">🥛</div><div><div class="base-label">Lácteos</div><div class="base-detail">2-3 raciones · yogur, leche, queso fresco</div></div></div>
+        <div class="base-item"><div class="base-icon">💧</div><div><div class="base-label">Agua</div><div class="base-detail">Bebida principal · café o infusiones OK</div></div></div>
+      </div>
     </div>
-  </div>
 
-  <!-- FREQUENCIES -->
-  <div class="freq-strip">
-    <div class="freq-cell"><div class="fc-icon">🥗</div><div class="fc-name">Legumbres</div><div class="fc-val">2+/sem</div></div>
-    <div class="freq-cell"><div class="fc-icon">🍗</div><div class="fc-name">Carne blanca</div><div class="fc-val">2/sem</div></div>
-    <div class="freq-cell"><div class="fc-icon">🐟</div><div class="fc-name">Pescado</div><div class="fc-val">3+/sem</div></div>
-    <div class="freq-cell"><div class="fc-icon">🥚</div><div class="fc-name">Huevos</div><div class="fc-val">2-4/sem</div></div>
-    <div class="freq-cell"><div class="fc-icon">🐠</div><div class="fc-name">Pescado azul</div><div class="fc-val">2/sem</div></div>
-    <div class="freq-cell"><div class="fc-icon">🥩</div><div class="fc-name">Carne roja</div><div class="fc-val">Máx 1/sem</div></div>
-  </div>
-
-  <!-- SECTION 01: MENU -->
-  <div class="sec-hdr">
-    <span class="sec-num">01</span>
-    <span class="sec-title">Menú semanal</span>
-    <div class="sec-line"></div>
-  </div>
-
-  <!-- TABS -->
-  <div class="tabs-wrap">
-    <div class="tabs" id="tabs">
-      <div class="tab active" data-day="lun">Lunes</div>
-      <div class="tab" data-day="mar">Martes</div>
-      <div class="tab" data-day="mie">Miércoles</div>
-      <div class="tab" data-day="jue">Jueves</div>
-      <div class="tab" data-day="vie">Viernes</div>
-      <div class="tab" data-day="sab">Sábado</div>
-      <div class="tab" data-day="dom">Domingo</div>
+    <div class="freq-strip">
+      <div class="freq-cell"><div class="fc-icon">🍗</div><div class="fc-name">Carne blanca</div><div class="fc-val">2-3/sem</div></div>
+      <div class="freq-cell"><div class="fc-icon">🐟</div><div class="fc-name">Pescado</div><div class="fc-val">3+/sem</div></div>
+      <div class="freq-cell"><div class="fc-icon">🥚</div><div class="fc-name">Huevos</div><div class="fc-val">2-4/sem</div></div>
+      <div class="freq-cell"><div class="fc-icon">🐠</div><div class="fc-name">Pescado azul</div><div class="fc-val">2/sem</div></div>
+      <div class="freq-cell"><div class="fc-icon">🥩</div><div class="fc-name">Carne roja</div><div class="fc-val">Máx 1/sem</div></div>
+      <div class="freq-cell"><div class="fc-icon">🍕</div><div class="fc-name">Comida trampa</div><div class="fc-val">1/sem</div></div>
     </div>
+
   </div>
 
-  <!-- DAY CONTENTS -->
-  <div id="day-lun" class="day-content active">
-    <div class="day-top"><div><div class="day-name">Lunes</div><div class="day-tag">Legumbres + pescado blanco</div></div></div>
-    <div class="meals-grid">
-      <div class="meal-card am"><div class="meal-header"><span class="meal-emoji">🌅</span><span class="meal-time">Desayuno</span></div><div class="meal-desc">Tostada de pan integral con aceite de oliva virgen extra y tomate rallado + yogur natural + 1 fruta</div></div>
-      <div class="meal-card pm"><div class="meal-header"><span class="meal-emoji">🍽</span><span class="meal-time">Comida</span></div><div class="meal-desc">Lentejas con verduras (zanahoria, pimiento, cebolla) + ensalada verde + 1 fruta</div></div>
-      <div class="meal-card ev"><div class="meal-header"><span class="meal-emoji">🌙</span><span class="meal-time">Cena</span></div><div class="meal-desc">Merluza al horno con patata y cebolla + ensalada verde con aceite de oliva</div></div>
+  <!-- ═══════════ PAGE: MENÚ SEMANAL ═══════════ -->
+  <div id="page-menu" class="page">
+
+    <div class="tabs-wrap">
+      <div class="tabs" id="dayTabs">
+        <div class="dtab active" data-day="lun">Lunes</div>
+        <div class="dtab" data-day="mar">Martes</div>
+        <div class="dtab" data-day="mie">Miércoles</div>
+        <div class="dtab" data-day="jue">Jueves</div>
+        <div class="dtab" data-day="vie">Viernes</div>
+        <div class="dtab" data-day="sab">Sábado</div>
+        <div class="dtab" data-day="dom">Domingo</div>
+      </div>
     </div>
-  </div>
 
-  <div id="day-mar" class="day-content">
-    <div class="day-top"><div><div class="day-name">Martes</div><div class="day-tag">Pollo + verduras salteadas</div></div></div>
-    <div class="meals-grid">
-      <div class="meal-card am"><div class="meal-header"><span class="meal-emoji">🌅</span><span class="meal-time">Desayuno</span></div><div class="meal-desc">Avena con leche + nueces + fruta troceada (manzana o fresas)</div></div>
-      <div class="meal-card pm"><div class="meal-header"><span class="meal-emoji">🍽</span><span class="meal-time">Comida</span></div><div class="meal-desc">Pechuga de pollo a la plancha + arroz integral + verduras salteadas (calabacín, pimiento)</div></div>
-      <div class="meal-card ev"><div class="meal-header"><span class="meal-emoji">🌙</span><span class="meal-time">Cena</span></div><div class="meal-desc">Crema de calabacín casera + tortilla francesa de 2 huevos + pan integral</div></div>
+    <div id="day-lun" class="day-content active">
+      <div class="day-top"><div><div class="day-name">Lunes</div><div class="day-tag">Pescado blanco + verduras</div></div></div>
+      <div class="meals-grid">
+        <div class="meal-card am"><div class="meal-header"><span class="meal-emoji">🌅</span><span class="meal-time">Desayuno</span></div><div class="meal-desc">Tostada de pan integral con aceite de oliva virgen extra y tomate rallado + yogur natural + 1 fruta</div></div>
+        <div class="meal-card pm"><div class="meal-header"><span class="meal-emoji">🍽</span><span class="meal-time">Comida</span></div><div class="meal-desc">Arroz integral con verduras salteadas (pimiento, calabacín, zanahoria) + ensalada verde + 1 fruta</div></div>
+        <div class="meal-card ev"><div class="meal-header"><span class="meal-emoji">🌙</span><span class="meal-time">Cena</span></div><div class="meal-desc">Merluza al horno con patata y cebolla + ensalada verde con aceite de oliva</div></div>
+      </div>
     </div>
-  </div>
 
-  <div id="day-mie" class="day-content">
-    <div class="day-top"><div><div class="day-name">Miércoles</div><div class="day-tag">Garbanzos + salmón</div></div></div>
-    <div class="meals-grid">
-      <div class="meal-card am"><div class="meal-header"><span class="meal-emoji">🌅</span><span class="meal-time">Desayuno</span></div><div class="meal-desc">Tostada integral con queso fresco tipo Burgos + tomate + aceite de oliva</div></div>
-      <div class="meal-card pm"><div class="meal-header"><span class="meal-emoji">🍽</span><span class="meal-time">Comida</span></div><div class="meal-desc">Garbanzos con espinacas y comino + ensalada variada + 1 fruta</div></div>
-      <div class="meal-card ev"><div class="meal-header"><span class="meal-emoji">🌙</span><span class="meal-time">Cena</span></div><div class="meal-desc">Salmón a la plancha con limón + ensalada variada (tomate, pepino, cebolla) + pan integral</div></div>
+    <div id="day-mar" class="day-content">
+      <div class="day-top"><div><div class="day-name">Martes</div><div class="day-tag">Pollo + verduras salteadas</div></div></div>
+      <div class="meals-grid">
+        <div class="meal-card am"><div class="meal-header"><span class="meal-emoji">🌅</span><span class="meal-time">Desayuno</span></div><div class="meal-desc">Tostada integral con queso fresco tipo Burgos + fruta troceada (manzana o fresas) + nueces</div></div>
+        <div class="meal-card pm"><div class="meal-header"><span class="meal-emoji">🍽</span><span class="meal-time">Comida</span></div><div class="meal-desc">Pechuga de pollo a la plancha + arroz integral + verduras salteadas (calabacín, pimiento)</div></div>
+        <div class="meal-card ev"><div class="meal-header"><span class="meal-emoji">🌙</span><span class="meal-time">Cena</span></div><div class="meal-desc">Crema de calabacín casera + tortilla francesa de 2 huevos + pan integral</div></div>
+      </div>
     </div>
-  </div>
 
-  <div id="day-jue" class="day-content">
-    <div class="day-top"><div><div class="day-name">Jueves</div><div class="day-tag">Pavo + pescadilla</div></div></div>
-    <div class="meals-grid">
-      <div class="meal-card am"><div class="meal-header"><span class="meal-emoji">🌅</span><span class="meal-time">Desayuno</span></div><div class="meal-desc">Yogur natural con avena + almendras + fruta de temporada</div></div>
-      <div class="meal-card pm"><div class="meal-header"><span class="meal-emoji">🍽</span><span class="meal-time">Comida</span></div><div class="meal-desc">Pavo al horno con verduras asadas (berenjena, calabacín, pimiento) + ensalada</div></div>
-      <div class="meal-card ev"><div class="meal-header"><span class="meal-emoji">🌙</span><span class="meal-time">Cena</span></div><div class="meal-desc">Pescadilla en papillote con verduras + puré de zanahoria y calabaza + 1 fruta</div></div>
+    <div id="day-mie" class="day-content">
+      <div class="day-top"><div><div class="day-name">Miércoles</div><div class="day-tag">Salmón + ensaladas</div></div></div>
+      <div class="meals-grid">
+        <div class="meal-card am"><div class="meal-header"><span class="meal-emoji">🌅</span><span class="meal-time">Desayuno</span></div><div class="meal-desc">Tostada integral con aceite de oliva + tomate + medio aguacate</div></div>
+        <div class="meal-card pm"><div class="meal-header"><span class="meal-emoji">🍽</span><span class="meal-time">Comida</span></div><div class="meal-desc">Pasta integral con verduras (espinacas, champiñones, tomate cherry) + ensalada variada + 1 fruta</div></div>
+        <div class="meal-card ev"><div class="meal-header"><span class="meal-emoji">🌙</span><span class="meal-time">Cena</span></div><div class="meal-desc">Salmón a la plancha con limón + ensalada variada (tomate, pepino, cebolla) + pan integral</div></div>
+      </div>
     </div>
-  </div>
 
-  <div id="day-vie" class="day-content">
-    <div class="day-top"><div><div class="day-name">Viernes</div><div class="day-tag">Pasta integral + revuelto</div></div></div>
-    <div class="meals-grid">
-      <div class="meal-card am"><div class="meal-header"><span class="meal-emoji">🌅</span><span class="meal-time">Desayuno</span></div><div class="meal-desc">Tostada integral con aceite de oliva + tomate + medio aguacate</div></div>
-      <div class="meal-card pm"><div class="meal-header"><span class="meal-emoji">🍽</span><span class="meal-time">Comida</span></div><div class="meal-desc">Pasta integral con atún al natural + tomate cherry + ensalada de canónigos</div></div>
-      <div class="meal-card ev"><div class="meal-header"><span class="meal-emoji">🌙</span><span class="meal-time">Cena</span></div><div class="meal-desc">Revuelto de espárragos trigueros y champiñones + pan integral + 1 fruta</div></div>
+    <div id="day-jue" class="day-content">
+      <div class="day-top"><div><div class="day-name">Jueves</div><div class="day-tag">Pavo + pescadilla</div></div></div>
+      <div class="meals-grid">
+        <div class="meal-card am"><div class="meal-header"><span class="meal-emoji">🌅</span><span class="meal-time">Desayuno</span></div><div class="meal-desc">Yogur natural con fruta de temporada + almendras + semillas de chía</div></div>
+        <div class="meal-card pm"><div class="meal-header"><span class="meal-emoji">🍽</span><span class="meal-time">Comida</span></div><div class="meal-desc">Pavo al horno con verduras asadas (berenjena, calabacín, pimiento) + ensalada</div></div>
+        <div class="meal-card ev"><div class="meal-header"><span class="meal-emoji">🌙</span><span class="meal-time">Cena</span></div><div class="meal-desc">Pescadilla en papillote con verduras + puré de zanahoria y calabaza + 1 fruta</div></div>
+      </div>
     </div>
-  </div>
 
-  <div id="day-sab" class="day-content">
-    <div class="day-top"><div><div class="day-name">Sábado</div><div class="day-tag">Dorada + conejo</div></div></div>
-    <div class="meals-grid">
-      <div class="meal-card am"><div class="meal-header"><span class="meal-emoji">🌅</span><span class="meal-time">Desayuno</span></div><div class="meal-desc">Avena con leche + nueces + plátano troceado</div></div>
-      <div class="meal-card pm"><div class="meal-header"><span class="meal-emoji">🍽</span><span class="meal-time">Comida</span></div><div class="meal-desc">Dorada al horno con patatas panaderas + ensalada mediterránea con aceitunas</div></div>
-      <div class="meal-card ev"><div class="meal-header"><span class="meal-emoji">🌙</span><span class="meal-time">Cena</span></div><div class="meal-desc">Conejo guisado con verduras (cebolla, zanahoria, tomate) + 1 fruta</div></div>
+    <div id="day-vie" class="day-content">
+      <div class="day-top"><div><div class="day-name">Viernes</div><div class="day-tag">Pasta integral + revuelto</div></div></div>
+      <div class="meals-grid">
+        <div class="meal-card am"><div class="meal-header"><span class="meal-emoji">🌅</span><span class="meal-time">Desayuno</span></div><div class="meal-desc">Tostada integral con aceite de oliva + tomate rallado + jamón serrano sin tocino</div></div>
+        <div class="meal-card pm"><div class="meal-header"><span class="meal-emoji">🍽</span><span class="meal-time">Comida</span></div><div class="meal-desc">Pasta integral con atún al natural + tomate cherry + ensalada de canónigos</div></div>
+        <div class="meal-card ev"><div class="meal-header"><span class="meal-emoji">🌙</span><span class="meal-time">Cena</span></div><div class="meal-desc">Revuelto de espárragos trigueros y champiñones + pan integral + 1 fruta</div></div>
+      </div>
     </div>
-  </div>
 
-  <div id="day-dom" class="day-content">
-    <div class="day-top"><div><div class="day-name">Domingo</div><div class="day-tag">Alubias + sardinas</div></div></div>
-    <div class="meals-grid">
-      <div class="meal-card am"><div class="meal-header"><span class="meal-emoji">🌅</span><span class="meal-time">Desayuno</span></div><div class="meal-desc">Tostada integral con jamón serrano (sin tocino) + tomate + aceite de oliva</div></div>
-      <div class="meal-card pm"><div class="meal-header"><span class="meal-emoji">🍽</span><span class="meal-time">Comida</span></div><div class="meal-desc">Alubias blancas con verduras (puerro, zanahoria, espinacas) + ensalada + 1 fruta</div></div>
-      <div class="meal-card ev"><div class="meal-header"><span class="meal-emoji">🌙</span><span class="meal-time">Cena</span></div><div class="meal-desc">Sardinas a la plancha con limón + ensalada de tomate y cebolla + pan integral</div></div>
+    <div id="day-sab" class="day-content">
+      <div class="day-top"><div><div class="day-name">Sábado</div><div class="day-tag">Dorada + conejo</div></div></div>
+      <div class="meals-grid">
+        <div class="meal-card am"><div class="meal-header"><span class="meal-emoji">🌅</span><span class="meal-time">Desayuno</span></div><div class="meal-desc">Tostada integral con aceite de oliva + jamón serrano sin tocino + plátano aparte</div></div>
+        <div class="meal-card pm"><div class="meal-header"><span class="meal-emoji">🍽</span><span class="meal-time">Comida</span></div><div class="meal-desc">Dorada al horno con patatas panaderas + ensalada mediterránea con aceitunas</div></div>
+        <div class="meal-card ev"><div class="meal-header"><span class="meal-emoji">🌙</span><span class="meal-time">Cena</span></div><div class="meal-desc">Conejo guisado con verduras (cebolla, zanahoria, tomate) + 1 fruta</div></div>
+      </div>
     </div>
-  </div>
 
-  <!-- SECTION 02: EVITAR + TIPS -->
-  <div class="sec-hdr">
-    <span class="sec-num">02</span>
-    <span class="sec-title">Qué evitar + tips de cocina</span>
-    <div class="sec-line"></div>
-  </div>
-
-  <div class="bottom-grid">
-    <div class="avoid-block">
-      <div class="block-title">🚫 Evitar</div>
-      <div class="avoid-item"><div class="avoid-dot"></div>Embutidos grasos (chorizo, salchichón, bacon, fuet)</div>
-      <div class="avoid-item"><div class="avoid-dot"></div>Bollería y pastelería industrial</div>
-      <div class="avoid-item"><div class="avoid-dot"></div>Fritos y precocinados (croquetas, empanadas)</div>
-      <div class="avoid-item"><div class="avoid-dot"></div>Refrescos con azúcar y zumos envasados</div>
-      <div class="avoid-item"><div class="avoid-dot"></div>Mantequilla, margarina, nata, mayonesa</div>
-      <div class="avoid-item"><div class="avoid-dot"></div>Carnes grasas (cerdo, cordero muy graso)</div>
-      <div class="avoid-item"><div class="avoid-dot"></div>Frutos secos fritos y salados</div>
-      <div class="avoid-item"><div class="avoid-dot"></div>Alcohol</div>
+    <div id="day-dom" class="day-content">
+      <div class="day-top"><div><div class="day-name">Domingo</div><div class="day-tag">Arroz con pollo + sardinas · 🍕 Comida trampa</div></div></div>
+      <div class="meals-grid">
+        <div class="meal-card am"><div class="meal-header"><span class="meal-emoji">🌅</span><span class="meal-time">Desayuno</span></div><div class="meal-desc">Tostada integral con queso fresco + tomate + aceite de oliva</div></div>
+        <div class="meal-card pm" style="background:#fef9f0;border-left-color:#daa520"><div class="meal-header"><span class="meal-emoji">🍕</span><span class="meal-time">Comida — Trampa</span></div><div class="meal-desc">Tu comida libre de la semana. Disfruta sin culpa, pero con cabeza: una ración normal, no un atracón. Pizza, hamburguesa, arepa, lo que te apetezca.</div></div>
+        <div class="meal-card ev"><div class="meal-header"><span class="meal-emoji">🌙</span><span class="meal-time">Cena</span></div><div class="meal-desc">Sardinas a la plancha con limón + ensalada de tomate y cebolla + pan integral (ligera para compensar)</div></div>
+      </div>
     </div>
-    <div class="tips-block">
-      <div class="block-title">✅ Tips de cocina</div>
-      <div class="tip-item"><div class="tip-dot"></div>Cocina al horno, plancha, vapor, hervido o papillote</div>
-      <div class="tip-item"><div class="tip-dot"></div>Aceite de oliva virgen extra como grasa principal</div>
-      <div class="tip-item"><div class="tip-dot"></div>Especias y condimentos libres — reducen la sal</div>
-      <div class="tip-item"><div class="tip-dot"></div>Sal yodada y en poca cantidad</div>
-      <div class="tip-item"><div class="tip-dot"></div>Las claras de huevo son libres — aprovéchalas</div>
-      <div class="tip-item"><div class="tip-dot"></div>Frutos secos siempre naturales, sin sal</div>
-      <div class="tip-item"><div class="tip-dot"></div>Bebe al menos 1.5–2 litros de agua al día</div>
-    </div>
+
   </div>
 
-  <!-- SECTION 03: TRACKER -->
-  <div class="sec-hdr">
-    <span class="sec-num">03</span>
-    <span class="sec-title">Seguimiento semanal</span>
-    <div class="sec-line"></div>
+  <!-- ═══════════ PAGE: RECOMENDACIONES ═══════════ -->
+  <div id="page-reco" class="page">
+
+    <div class="sec-hdr">
+      <span class="sec-num">01</span>
+      <span class="sec-title">Qué evitar + Tips de cocina</span>
+      <div class="sec-line"></div>
+    </div>
+
+    <div class="grid-2col">
+      <div class="info-block avoid-bg">
+        <div class="block-title red">🚫 Evitar</div>
+        <div class="list-item"><div class="dot red"></div>Embutidos grasos (chorizo, salchichón, bacon, fuet)</div>
+        <div class="list-item"><div class="dot red"></div>Bollería y pastelería industrial</div>
+        <div class="list-item"><div class="dot red"></div>Fritos y precocinados (croquetas, empanadas)</div>
+        <div class="list-item"><div class="dot red"></div>Refrescos con azúcar y zumos envasados</div>
+        <div class="list-item"><div class="dot red"></div>Mantequilla, margarina, nata, mayonesa</div>
+        <div class="list-item"><div class="dot red"></div>Carnes grasas (cerdo, cordero muy graso)</div>
+        <div class="list-item"><div class="dot red"></div>Frutos secos fritos y salados</div>
+        <div class="list-item"><div class="dot red"></div>Alcohol</div>
+        <div class="list-item"><div class="dot red"></div>Legumbres (producen gases)</div>
+      </div>
+      <div class="info-block tips-bg">
+        <div class="block-title green">✅ Tips de cocina</div>
+        <div class="list-item"><div class="dot green"></div>Cocina al horno, plancha, vapor, hervido o papillote</div>
+        <div class="list-item"><div class="dot green"></div>Aceite de oliva virgen extra como grasa principal</div>
+        <div class="list-item"><div class="dot green"></div>Especias y condimentos libres — reducen la sal</div>
+        <div class="list-item"><div class="dot green"></div>Sal yodada y en poca cantidad</div>
+        <div class="list-item"><div class="dot green"></div>Las claras de huevo son libres — aprovéchalas</div>
+        <div class="list-item"><div class="dot green"></div>Frutos secos siempre naturales, sin sal</div>
+        <div class="list-item"><div class="dot green"></div>Bebe al menos 1.5–2 litros de agua al día</div>
+        <div class="list-item"><div class="dot green"></div>Combina proteína + fibra + grasa buena en cada comida</div>
+      </div>
+    </div>
+
+    <div class="sec-hdr">
+      <span class="sec-num">02</span>
+      <span class="sec-title">Comida Trampa Semanal</span>
+      <div class="sec-line"></div>
+    </div>
+
+    <div style="padding:24px 60px;background:var(--bg)">
+      <div class="cheat-highlight">
+        <h4>🍕 Una vez a la semana. Sin culpa, con cabeza.</h4>
+        <div class="cheat-rules">
+          <strong>Reglas de la comida trampa:</strong><br><br>
+          <div class="list-item"><div class="dot gold"></div><strong>Cuándo:</strong> Domingo al mediodía (o el día que prefieras)</div>
+          <div class="list-item"><div class="dot gold"></div><strong>Qué:</strong> Lo que te apetezca — pizza, hamburguesa, arepa, pasta, sushi...</div>
+          <div class="list-item"><div class="dot gold"></div><strong>Cuánto:</strong> Una ración normal. No es un atracón, es un premio</div>
+          <div class="list-item"><div class="dot gold"></div><strong>Después:</strong> Cena ligera para compensar (ensalada + proteína)</div>
+          <div class="list-item"><div class="dot gold"></div><strong>Por qué:</strong> Mantiene la motivación, reduce ansiedad por restricción, y psicológicamente te ayuda a seguir el plan el resto de la semana</div>
+          <div class="list-item"><div class="dot gold"></div><strong>Ojo con diabetes:</strong> Evita combos muy altos en azúcar + grasa (ej: tarta + helado + refresco). Mejor algo salado. Monitoriza glucosa después</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec-hdr">
+      <span class="sec-num">03</span>
+      <span class="sec-title">Consejos para diabéticos</span>
+      <div class="sec-line"></div>
+    </div>
+
+    <div style="padding:24px 60px;background:var(--white)">
+      <div class="grid-2col" style="border:1px solid var(--divider);border-radius:14px;overflow:hidden">
+        <div class="info-block tips-bg">
+          <div class="block-title green">🩺 Para estabilizar la glucosa</div>
+          <div class="list-item"><div class="dot green"></div>Come la verdura y proteína ANTES que los carbohidratos</div>
+          <div class="list-item"><div class="dot green"></div>Camina 10-15 minutos después de comer</div>
+          <div class="list-item"><div class="dot green"></div>No saltes comidas — come cada 4-5 horas</div>
+          <div class="list-item"><div class="dot green"></div>Vinagre de manzana antes de las comidas (1 cucharada en agua)</div>
+          <div class="list-item"><div class="dot green"></div>Canela en postres o desayunos (ayuda a la sensibilidad a insulina)</div>
+        </div>
+        <div class="info-block" style="background:var(--white)">
+          <div class="block-title red">⚠️ Alimentos con alto índice glucémico</div>
+          <div class="list-item"><div class="dot red"></div>Pan blanco, arroz blanco (prefiere siempre integral)</div>
+          <div class="list-item"><div class="dot red"></div>Patata cocida sola (mejor con piel + aceite + proteína)</div>
+          <div class="list-item"><div class="dot red"></div>Plátano muy maduro (mejor verde o poco maduro)</div>
+          <div class="list-item"><div class="dot red"></div>Zumos de fruta (mejor la fruta entera con fibra)</div>
+          <div class="list-item"><div class="dot red"></div>Miel, mermelada, azúcar de mesa</div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
-  <div class="tracker">
-    <div class="tracker-title">✏️ Marca cada día que cumplas</div>
-    <div class="tracker-grid">
-      <div class="tr-header"></div>
-      <div class="tr-header">Lun</div><div class="tr-header">Mar</div><div class="tr-header">Mié</div>
-      <div class="tr-header">Jue</div><div class="tr-header">Vie</div><div class="tr-header">Sáb</div><div class="tr-header">Dom</div>
+  <!-- ═══════════ PAGE: LISTA DE LA COMPRA ═══════════ -->
+  <div id="page-compra" class="page">
 
-      <div class="tr-label">🫒 Aceite oliva</div>
-      <div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div>
-      <div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div>
-
-      <div class="tr-label">🥬 2+ verduras</div>
-      <div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div>
-      <div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div>
-
-      <div class="tr-label">🍎 3 frutas</div>
-      <div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div>
-      <div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div>
-
-      <div class="tr-label">🥜 Frutos secos</div>
-      <div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div>
-      <div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div>
-
-      <div class="tr-label">💧 1.5L+ agua</div>
-      <div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div>
-      <div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div>
-
-      <div class="tr-label">🚫 Sin fritos</div>
-      <div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div>
-      <div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div>
+    <div class="sec-hdr">
+      <span class="sec-num">🛒</span>
+      <span class="sec-title">Lista de la compra semanal</span>
+      <div class="sec-line"></div>
     </div>
+
+    <div class="shop-grid">
+      <div class="shop-cat">
+        <div class="shop-cat-title">🥬 Frutería / Verdulería</div>
+        <div class="shop-item"><input type="checkbox" class="shop-cb"> Tomates (1 kg)</div>
+        <div class="shop-item"><input type="checkbox" class="shop-cb"> Calabacín (3-4 uds)</div>
+        <div class="shop-item"><input type="checkbox" class="shop-cb"> Pimientos (3-4 uds)</div>
+        <div class="shop-item"><input type="checkbox" class="shop-cb"> Zanahoria (500g)</div>
+        <div class="shop-item"><input type="checkbox" class="shop-cb"> Cebolla (4-5 uds)</div>
+        <div class="shop-item"><input type="checkbox" class="shop-cb"> Pepino (2 uds)</div>
+        <div class="shop-item"><input type="checkbox" class="shop-cb"> Lechuga / canónigos (2 bolsas)</div>
+        <div class="shop-item"><input type="checkbox" class="shop-cb"> Espinacas frescas (1 bolsa)</div>
+        <div class="shop-item"><input type="checkbox" class="shop-cb"> Espárragos trigueros (1 manojo)</div>
+        <div class="shop-item"><input type="checkbox" class="shop-cb"> Champiñones (250g)</div>
+        <div class="shop-item"><input type="checkbox" class="shop-cb"> Berenjena (2 uds)</div>
+        <div class="shop-item"><input type="checkbox" class="shop-cb"> Patatas (1 kg)</div>
+        <div class="shop-item"><input type="checkbox" class="shop-cb"> Aguacate (2 uds)</div>
+        <div class="shop-item"><input type="checkbox" class="shop-cb"> Limones (4 uds)</div>
+        <div class="shop-item"><input type="checkbox" class="shop-cb"> Aceitunas (1 bote)</div>
+      </div>
+      <div class="shop-cat" style="background:var(--bg)">
+        <div class="shop-cat-title">🍎 Frutas</div>
+        <div class="shop-item"><input type="checkbox" class="shop-cb"> Manzanas (6-7 uds)</div>
+        <div class="shop-item"><input type="checkbox" class="shop-cb"> Fresas (1 bandeja)</div>
+        <div class="shop-item"><input type="checkbox" class="shop-cb"> Plátanos (4-5 uds, no muy maduros)</div>
+        <div class="shop-item"><input type="checkbox" class="shop-cb"> Fruta de temporada (melocotón, pera, naranja...)</div>
+
+        <div class="shop-cat-title" style="margin-top:18px">🐟 Pescadería</div>
+        <div class="shop-item"><input type="checkbox" class="shop-cb"> Merluza (2 rodajas/filetes)</div>
+        <div class="shop-item"><input type="checkbox" class="shop-cb"> Salmón fresco (2 filetes)</div>
+        <div class="shop-item"><input type="checkbox" class="shop-cb"> Pescadilla (2 filetes)</div>
+        <div class="shop-item"><input type="checkbox" class="shop-cb"> Dorada (1 entera o 2 filetes)</div>
+        <div class="shop-item"><input type="checkbox" class="shop-cb"> Sardinas (6-8 uds)</div>
+        <div class="shop-item"><input type="checkbox" class="shop-cb"> Atún en lata al natural (2 latas)</div>
+      </div>
+      <div class="shop-cat">
+        <div class="shop-cat-title">🍗 Carnicería</div>
+        <div class="shop-item"><input type="checkbox" class="shop-cb"> Pechuga de pollo (400g)</div>
+        <div class="shop-item"><input type="checkbox" class="shop-cb"> Pavo filetes (300g)</div>
+        <div class="shop-item"><input type="checkbox" class="shop-cb"> Conejo (½ o piezas)</div>
+        <div class="shop-item"><input type="checkbox" class="shop-cb"> Jamón serrano sin tocino (200g)</div>
+        <div class="shop-item"><input type="checkbox" class="shop-cb"> Huevos (1 docena)</div>
+
+        <div class="shop-cat-title" style="margin-top:18px">🧀 Lácteos y Nevera</div>
+        <div class="shop-item"><input type="checkbox" class="shop-cb"> Yogur natural (pack 8 uds)</div>
+        <div class="shop-item"><input type="checkbox" class="shop-cb"> Leche (1-2 litros)</div>
+        <div class="shop-item"><input type="checkbox" class="shop-cb"> Queso fresco tipo Burgos (1 ud)</div>
+      </div>
+    </div>
+
+    <div class="shop-grid">
+      <div class="shop-cat" style="background:var(--bg)">
+        <div class="shop-cat-title">🌾 Despensa</div>
+        <div class="shop-item"><input type="checkbox" class="shop-cb"> Pan integral (barra o molde)</div>
+        <div class="shop-item"><input type="checkbox" class="shop-cb"> Arroz integral (500g)</div>
+        <div class="shop-item"><input type="checkbox" class="shop-cb"> Pasta integral (500g)</div>
+        <div class="shop-item"><input type="checkbox" class="shop-cb"> Aceite de oliva virgen extra</div>
+        <div class="shop-item"><input type="checkbox" class="shop-cb"> Tomate triturado natural (1 bote)</div>
+      </div>
+      <div class="shop-cat">
+        <div class="shop-cat-title">🥜 Frutos Secos y Semillas</div>
+        <div class="shop-item"><input type="checkbox" class="shop-cb"> Nueces naturales (200g)</div>
+        <div class="shop-item"><input type="checkbox" class="shop-cb"> Almendras naturales (200g)</div>
+        <div class="shop-item"><input type="checkbox" class="shop-cb"> Semillas de chía (1 bolsa)</div>
+      </div>
+      <div class="shop-cat" style="background:var(--bg)">
+        <div class="shop-cat-title">🧂 Especias y Varios</div>
+        <div class="shop-item"><input type="checkbox" class="shop-cb"> Sal yodada</div>
+        <div class="shop-item"><input type="checkbox" class="shop-cb"> Pimienta negra</div>
+        <div class="shop-item"><input type="checkbox" class="shop-cb"> Comino, pimentón, cúrcuma</div>
+        <div class="shop-item"><input type="checkbox" class="shop-cb"> Canela en polvo</div>
+        <div class="shop-item"><input type="checkbox" class="shop-cb"> Vinagre de manzana</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ═══════════ PAGE: SEGUIMIENTO ═══════════ -->
+  <div id="page-track" class="page">
+
+    <div class="sec-hdr">
+      <span class="sec-num">📊</span>
+      <span class="sec-title">Seguimiento semanal</span>
+      <div class="sec-line"></div>
+    </div>
+
+    <div class="tracker">
+      <div class="tracker-title">✏️ Marca cada día que cumplas</div>
+      <div class="tracker-grid">
+        <div class="tr-header"></div>
+        <div class="tr-header">Lun</div><div class="tr-header">Mar</div><div class="tr-header">Mié</div>
+        <div class="tr-header">Jue</div><div class="tr-header">Vie</div><div class="tr-header">Sáb</div><div class="tr-header">Dom</div>
+
+        <div class="tr-label">🫒 Aceite oliva</div>
+        <div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div>
+        <div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div>
+
+        <div class="tr-label">🥬 2+ verduras</div>
+        <div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div>
+        <div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div>
+
+        <div class="tr-label">🍎 3 frutas</div>
+        <div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div>
+        <div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div>
+
+        <div class="tr-label">🥜 Frutos secos</div>
+        <div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div>
+        <div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div>
+
+        <div class="tr-label">💧 1.5L+ agua</div>
+        <div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div>
+        <div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div>
+
+        <div class="tr-label">🚫 Sin fritos</div>
+        <div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div>
+        <div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div>
+
+        <div class="tr-label">🚶‍♀️ Caminar 30'</div>
+        <div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div>
+        <div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div>
+
+        <div class="tr-label">🩺 Glucosa en rango</div>
+        <div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div>
+        <div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div>
+      </div>
+    </div>
+
   </div>
 
   <!-- FOOTER -->
@@ -545,12 +541,22 @@
 </div>
 
 <script>
-  document.querySelectorAll('.tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-      document.querySelectorAll('.day-content').forEach(d => d.classList.remove('active'));
+  // Main page tabs
+  document.querySelectorAll('.main-tab').forEach(tab=>{
+    tab.addEventListener('click',()=>{
+      document.querySelectorAll('.main-tab').forEach(t=>t.classList.remove('active'));
+      document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
       tab.classList.add('active');
-      document.getElementById('day-' + tab.dataset.day).classList.add('active');
+      document.getElementById('page-'+tab.dataset.page).classList.add('active');
+    });
+  });
+  // Day tabs
+  document.querySelectorAll('.dtab').forEach(tab=>{
+    tab.addEventListener('click',()=>{
+      document.querySelectorAll('.dtab').forEach(t=>t.classList.remove('active'));
+      document.querySelectorAll('.day-content').forEach(d=>d.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById('day-'+tab.dataset.day).classList.add('active');
     });
   });
 </script>
