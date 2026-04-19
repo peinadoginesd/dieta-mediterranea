@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plan Alimentación Mediterránea</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800;900&family=Lato:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --wine:    #6b2d5b;
+    --rose:    #c2638e;
+    --blush:   #e8a0bf;
+    --peach:   #f5d0c5;
+    --cream:   #fdf6f0;
+    --bg:      #fffaf7;
+    --white:   #ffffff;
+    --dark:    #3a2434;
+    --mid:     #7a5f6f;
+    --soft:    #a8899a;
+    --muted:   #c4b0ba;
+    --divider: #e8d8e0;
+    --light:   #f7eff3;
+    --gold:    #c9a84c;
+    --sage:    #7a9e7e;
+    --sage-l:  #d4e6d5;
+  }
+
+  body {
+    font-family: 'Lato', sans-serif;
+    background: var(--bg);
+    color: var(--dark);
+    min-height: 100vh;
+  }
+
+  .card { max-width: 1100px; margin: 0 auto; background: var(--white); overflow: hidden; box-shadow: 0 4px 40px rgba(107,45,91,0.08); }
+
+  /* ── HEADER ── */
+  .header {
+    background: linear-gradient(135deg, var(--wine), #8b3a6e);
+    padding: 44px 60px 38px;
+    display: flex; justify-content: space-between; align-items: flex-end;
+    position: relative; overflow: hidden;
+  }
+  .header-deco {
+    position: absolute; top: -40px; right: -40px;
+    width: 200px; height: 200px; border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+  }
+  .header-deco2 {
+    position: absolute; bottom: -60px; right: 80px;
+    width: 150px; height: 150px; border-radius: 50%;
+    background: rgba(255,255,255,0.03);
+  }
+  .title-block h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 54px; font-weight: 800; line-height: 1;
+    color: #fdf0ec; letter-spacing: -0.5px;
+  }
+  .title-block h1 .script {
+    font-weight: 400; font-style: italic; color: var(--blush);
+  }
+  .title-block .subtitle {
+    font-size: 11px; color: rgba(253,240,236,0.45);
+    letter-spacing: 4px; text-transform: uppercase; margin-top: 14px;
+  }
+  .header-right { display: flex; flex-direction: column; align-items: flex-end; gap: 14px; position: relative; z-index: 1; }
+  .tag-row { display: flex; gap: 6px; flex-wrap: wrap; }
+  .tag {
+    border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.5);
+    padding: 5px 14px; font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
+    border-radius: 20px;
+  }
+  .tag.active { border-color: var(--peach); background: var(--peach); color: var(--wine); font-weight: 700; }
+
+  /* ── DAILY BASE ── */
+  .base-section {
+    padding: 28px 60px;
+    background: var(--light);
+    border-bottom: 1px solid var(--divider);
+  }
+  .base-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 14px; font-weight: 700; color: var(--wine);
+    letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 16px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .base-title::after { content: ''; flex: 1; height: 1px; background: var(--divider); }
+  .base-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+  }
+  .base-item {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 14px;
+    background: var(--white);
+    border: 1px solid var(--divider);
+    border-radius: 10px;
+  }
+  .base-icon { font-size: 1.6em; min-width: 32px; text-align: center; }
+  .base-label { font-size: 12px; font-weight: 600; color: var(--dark); }
+  .base-detail { font-size: 10px; color: var(--soft); margin-top: 1px; }
+
+  /* ── FREQ STRIP ── */
+  .freq-strip {
+    display: grid; grid-template-columns: repeat(6, 1fr);
+    border-bottom: 2px solid var(--wine);
+  }
+  .freq-cell {
+    padding: 14px 10px; text-align: center;
+    border-right: 1px solid var(--divider);
+    background: var(--white);
+  }
+  .freq-cell:last-child { border-right: none; }
+  .freq-cell .fc-icon { font-size: 1.4em; margin-bottom: 4px; }
+  .freq-cell .fc-name { font-size: 9px; color: var(--mid); letter-spacing: 1px; text-transform: uppercase; font-weight: 600; }
+  .freq-cell .fc-val {
+    font-family: 'Playfair Display', serif;
+    font-size: 14px; font-weight: 700; color: var(--wine); margin-top: 2px;
+  }
+
+  /* ── SECTION HEADER ── */
+  .sec-hdr {
+    padding: 10px 60px; border-bottom: 1px solid var(--divider);
+    background: var(--cream);
+    display: flex; align-items: center; gap: 13px;
+  }
+  .sec-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 11px; font-weight: 700; color: var(--muted); letter-spacing: 2px; width: 20px;
+  }
+  .sec-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px; font-weight: 700; color: var(--wine); letter-spacing: 2px; text-transform: uppercase;
+  }
+  .sec-line { flex: 1; height: 1px; background: var(--divider); }
+
+  /* ── DAY TABS ── */
+  .tabs-wrap {
+    padding: 16px 60px 0;
+    background: var(--white);
+    border-bottom: 1px solid var(--divider);
+  }
+  .tabs {
+    display: flex; gap: 6px; flex-wrap: wrap;
+    justify-content: center;
+  }
+  .tab {
+    padding: 10px 20px;
+    border-radius: 25px 25px 0 0;
+    border: 1px solid var(--divider);
+    border-bottom: none;
+    background: var(--white);
+    color: var(--mid);
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.3s;
+    user-select: none;
+  }
+  .tab:hover { background: var(--light); }
+  .tab.active {
+    background: var(--wine);
+    color: var(--peach);
+    border-color: var(--wine);
+    font-weight: 700;
+  }
+
+  /* ── DAY CONTENT ── */
+  .day-content {
+    display: none;
+    padding: 28px 60px;
+    background: var(--white);
+    animation: fadeIn 0.35s ease;
+  }
+  .day-content.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .day-top {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    margin-bottom: 20px; padding-bottom: 14px; border-bottom: 1px solid var(--divider);
+    position: relative;
+  }
+  .day-top::after {
+    content: ''; position: absolute;
+    bottom: -1px; left: 0; width: 50px; height: 2px; background: var(--rose);
+  }
+  .day-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px; font-weight: 800; color: var(--wine);
+    line-height: 1;
+  }
+  .day-tag {
+    font-size: 10px; color: var(--soft); text-transform: uppercase; letter-spacing: 1.5px; margin-top: 5px;
+  }
+
+  /* ── MEAL CARDS ── */
+  .meals-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+
+  .meal-card {
+    padding: 20px;
+    border-radius: 14px;
+    border: 1px solid var(--divider);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .meal-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(107,45,91,0.08);
+  }
+  .meal-card.am { background: #fffbf5; border-left: 3px solid #f5a623; }
+  .meal-card.pm { background: #f8fdf8; border-left: 3px solid var(--sage); }
+  .meal-card.ev { background: #faf5fd; border-left: 3px solid #9b59b6; }
+
+  .meal-header {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 12px;
+  }
+  .meal-emoji { font-size: 1.4em; }
+  .meal-time {
+    font-size: 9px; color: var(--muted); letter-spacing: 2px;
+    text-transform: uppercase; font-weight: 700;
+  }
+  .meal-desc { font-size: 13px; color: var(--dark); line-height: 1.6; }
+
+  /* ── AVOID / TIPS ── */
+  .bottom-grid { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid var(--divider); }
+
+  .avoid-block { padding: 24px 28px 24px 60px; border-right: 1px solid var(--divider); background: #fdf2f2; }
+  .tips-block { padding: 24px 60px 24px 28px; background: var(--cream); }
+
+  .block-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+    margin-bottom: 14px; display: flex; align-items: center; gap: 10px;
+  }
+  .block-title::after { content: ''; flex: 1; height: 1px; background: var(--divider); }
+  .avoid-block .block-title { color: #c0392b; }
+  .tips-block .block-title { color: var(--sage); }
+
+  .avoid-item, .tip-item {
+    font-size: 11px; color: var(--mid); padding: 5px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.04);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .avoid-item:last-child, .tip-item:last-child { border-bottom: none; }
+  .avoid-dot { width: 6px; height: 6px; border-radius: 50%; background: #e57373; flex-shrink: 0; }
+  .tip-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--sage); flex-shrink: 0; }
+
+  /* ── TRACKER ── */
+  .tracker {
+    padding: 24px 60px;
+    background: var(--light);
+    border-bottom: 1px solid var(--divider);
+  }
+  .tracker-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 11px; font-weight: 700; color: var(--wine);
+    letter-spacing: 3px; text-transform: uppercase; margin-bottom: 14px;
+  }
+  .tracker-grid {
+    display: grid; grid-template-columns: 130px repeat(7, 1fr);
+    gap: 0;
+  }
+  .tr-header {
+    font-size: 8px; color: var(--muted); letter-spacing: 1.5px;
+    text-transform: uppercase; font-weight: 700;
+    text-align: center; padding: 6px 4px;
+    border-bottom: 1px solid var(--divider);
+  }
+  .tr-label {
+    font-size: 11px; color: var(--mid); padding: 8px 4px;
+    border-bottom: 1px solid #f5edf0;
+    display: flex; align-items: center;
+  }
+  .tr-check {
+    text-align: center; padding: 8px 4px;
+    border-bottom: 1px solid #f5edf0;
+  }
+  .cb {
+    appearance: none; -webkit-appearance: none;
+    width: 16px; height: 16px;
+    border: 1.5px solid var(--divider); border-radius: 3px;
+    background: var(--white); cursor: pointer; position: relative;
+  }
+  .cb:checked { background: var(--rose); border-color: var(--rose); }
+  .cb:checked::after {
+    content: ''; position: absolute;
+    left: 4px; top: 1px; width: 5px; height: 9px;
+    border: 1.5px solid white; border-top: none; border-left: none;
+    transform: rotate(45deg);
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    padding: 18px 60px;
+    background: var(--wine);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .footer-left { display: flex; gap: 24px; }
+  .fl { text-align: center; }
+  .fl-v { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 700; color: var(--peach); }
+  .fl-l { font-size: 8px; color: rgba(255,255,255,0.4); letter-spacing: 1.5px; text-transform: uppercase; margin-top: 2px; }
+  .fl-sep { width: 1px; height: 28px; background: rgba(255,255,255,0.1); align-self: center; }
+  .footer-note { font-size: 9px; color: rgba(255,255,255,0.35); font-style: italic; max-width: 260px; text-align: right; line-height: 1.5; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 700px) {
+    .header { padding: 28px 20px 24px; flex-direction: column; align-items: flex-start; gap: 16px; }
+    .title-block h1 { font-size: 36px; }
+    .header-right { align-items: flex-start; }
+    .base-section, .sec-hdr, .tracker, .tabs-wrap { padding-left: 20px; padding-right: 20px; }
+    .day-content { padding: 20px; }
+    .meals-grid { grid-template-columns: 1fr; }
+    .bottom-grid { grid-template-columns: 1fr; }
+    .avoid-block { border-right: none; border-bottom: 1px solid var(--divider); padding: 20px; }
+    .tips-block { padding: 20px; }
+    .freq-strip { grid-template-columns: repeat(3, 1fr); }
+    .footer { flex-direction: column; gap: 16px; padding: 18px 20px; }
+    .footer-left { flex-wrap: wrap; justify-content: center; }
+    .footer-note { text-align: center; max-width: 100%; }
+    .tracker-grid { grid-template-columns: 100px repeat(7, 1fr); }
+    .tab { padding: 8px 14px; font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-deco"></div>
+    <div class="header-deco2"></div>
+    <div class="title-block">
+      <h1>Dieta<br><span class="script">Mediterránea</span></h1>
+      <div class="subtitle">Plan semanal · equilibrio · salud cardiovascular</div>
+    </div>
+    <div class="header-right">
+      <div class="tag-row">
+        <div class="tag active">7 días</div>
+        <div class="tag">Equilibrada</div>
+        <div class="tag">Corazón sano</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAILY BASE -->
+  <div class="base-section">
+    <div class="base-title">📌 Base diaria — todos los días</div>
+    <div class="base-grid">
+      <div class="base-item"><div class="base-icon">🫒</div><div><div class="base-label">Aceite de oliva virgen extra</div><div class="base-detail">4+ cucharadas · cocinar y aliñar</div></div></div>
+      <div class="base-item"><div class="base-icon">🥬</div><div><div class="base-label">Verduras y hortalizas</div><div class="base-detail">2+ raciones · una cruda en ensalada</div></div></div>
+      <div class="base-item"><div class="base-icon">🍎</div><div><div class="base-label">Fruta fresca</div><div class="base-detail">3 piezas mínimo al día</div></div></div>
+      <div class="base-item"><div class="base-icon">🌾</div><div><div class="base-label">Cereales integrales</div><div class="base-detail">Pan integral + arroz o pasta integral</div></div></div>
+      <div class="base-item"><div class="base-icon">🥜</div><div><div class="base-label">Frutos secos sin sal</div><div class="base-detail">1 puñado (30g) · nueces ideal</div></div></div>
+      <div class="base-item"><div class="base-icon">🥛</div><div><div class="base-label">Lácteos</div><div class="base-detail">2-3 raciones · yogur, leche, queso fresco</div></div></div>
+      <div class="base-item"><div class="base-icon">💧</div><div><div class="base-label">Agua</div><div class="base-detail">Bebida principal · café o infusiones OK</div></div></div>
+    </div>
+  </div>
+
+  <!-- FREQUENCIES -->
+  <div class="freq-strip">
+    <div class="freq-cell"><div class="fc-icon">🥗</div><div class="fc-name">Legumbres</div><div class="fc-val">2+/sem</div></div>
+    <div class="freq-cell"><div class="fc-icon">🍗</div><div class="fc-name">Carne blanca</div><div class="fc-val">2/sem</div></div>
+    <div class="freq-cell"><div class="fc-icon">🐟</div><div class="fc-name">Pescado</div><div class="fc-val">3+/sem</div></div>
+    <div class="freq-cell"><div class="fc-icon">🥚</div><div class="fc-name">Huevos</div><div class="fc-val">2-4/sem</div></div>
+    <div class="freq-cell"><div class="fc-icon">🐠</div><div class="fc-name">Pescado azul</div><div class="fc-val">2/sem</div></div>
+    <div class="freq-cell"><div class="fc-icon">🥩</div><div class="fc-name">Carne roja</div><div class="fc-val">Máx 1/sem</div></div>
+  </div>
+
+  <!-- SECTION 01: MENU -->
+  <div class="sec-hdr">
+    <span class="sec-num">01</span>
+    <span class="sec-title">Menú semanal</span>
+    <div class="sec-line"></div>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs-wrap">
+    <div class="tabs" id="tabs">
+      <div class="tab active" data-day="lun">Lunes</div>
+      <div class="tab" data-day="mar">Martes</div>
+      <div class="tab" data-day="mie">Miércoles</div>
+      <div class="tab" data-day="jue">Jueves</div>
+      <div class="tab" data-day="vie">Viernes</div>
+      <div class="tab" data-day="sab">Sábado</div>
+      <div class="tab" data-day="dom">Domingo</div>
+    </div>
+  </div>
+
+  <!-- DAY CONTENTS -->
+  <div id="day-lun" class="day-content active">
+    <div class="day-top"><div><div class="day-name">Lunes</div><div class="day-tag">Legumbres + pescado blanco</div></div></div>
+    <div class="meals-grid">
+      <div class="meal-card am"><div class="meal-header"><span class="meal-emoji">🌅</span><span class="meal-time">Desayuno</span></div><div class="meal-desc">Tostada de pan integral con aceite de oliva virgen extra y tomate rallado + yogur natural + 1 fruta</div></div>
+      <div class="meal-card pm"><div class="meal-header"><span class="meal-emoji">🍽</span><span class="meal-time">Comida</span></div><div class="meal-desc">Lentejas con verduras (zanahoria, pimiento, cebolla) + ensalada verde + 1 fruta</div></div>
+      <div class="meal-card ev"><div class="meal-header"><span class="meal-emoji">🌙</span><span class="meal-time">Cena</span></div><div class="meal-desc">Merluza al horno con patata y cebolla + ensalada verde con aceite de oliva</div></div>
+    </div>
+  </div>
+
+  <div id="day-mar" class="day-content">
+    <div class="day-top"><div><div class="day-name">Martes</div><div class="day-tag">Pollo + verduras salteadas</div></div></div>
+    <div class="meals-grid">
+      <div class="meal-card am"><div class="meal-header"><span class="meal-emoji">🌅</span><span class="meal-time">Desayuno</span></div><div class="meal-desc">Avena con leche + nueces + fruta troceada (manzana o fresas)</div></div>
+      <div class="meal-card pm"><div class="meal-header"><span class="meal-emoji">🍽</span><span class="meal-time">Comida</span></div><div class="meal-desc">Pechuga de pollo a la plancha + arroz integral + verduras salteadas (calabacín, pimiento)</div></div>
+      <div class="meal-card ev"><div class="meal-header"><span class="meal-emoji">🌙</span><span class="meal-time">Cena</span></div><div class="meal-desc">Crema de calabacín casera + tortilla francesa de 2 huevos + pan integral</div></div>
+    </div>
+  </div>
+
+  <div id="day-mie" class="day-content">
+    <div class="day-top"><div><div class="day-name">Miércoles</div><div class="day-tag">Garbanzos + salmón</div></div></div>
+    <div class="meals-grid">
+      <div class="meal-card am"><div class="meal-header"><span class="meal-emoji">🌅</span><span class="meal-time">Desayuno</span></div><div class="meal-desc">Tostada integral con queso fresco tipo Burgos + tomate + aceite de oliva</div></div>
+      <div class="meal-card pm"><div class="meal-header"><span class="meal-emoji">🍽</span><span class="meal-time">Comida</span></div><div class="meal-desc">Garbanzos con espinacas y comino + ensalada variada + 1 fruta</div></div>
+      <div class="meal-card ev"><div class="meal-header"><span class="meal-emoji">🌙</span><span class="meal-time">Cena</span></div><div class="meal-desc">Salmón a la plancha con limón + ensalada variada (tomate, pepino, cebolla) + pan integral</div></div>
+    </div>
+  </div>
+
+  <div id="day-jue" class="day-content">
+    <div class="day-top"><div><div class="day-name">Jueves</div><div class="day-tag">Pavo + pescadilla</div></div></div>
+    <div class="meals-grid">
+      <div class="meal-card am"><div class="meal-header"><span class="meal-emoji">🌅</span><span class="meal-time">Desayuno</span></div><div class="meal-desc">Yogur natural con avena + almendras + fruta de temporada</div></div>
+      <div class="meal-card pm"><div class="meal-header"><span class="meal-emoji">🍽</span><span class="meal-time">Comida</span></div><div class="meal-desc">Pavo al horno con verduras asadas (berenjena, calabacín, pimiento) + ensalada</div></div>
+      <div class="meal-card ev"><div class="meal-header"><span class="meal-emoji">🌙</span><span class="meal-time">Cena</span></div><div class="meal-desc">Pescadilla en papillote con verduras + puré de zanahoria y calabaza + 1 fruta</div></div>
+    </div>
+  </div>
+
+  <div id="day-vie" class="day-content">
+    <div class="day-top"><div><div class="day-name">Viernes</div><div class="day-tag">Pasta integral + revuelto</div></div></div>
+    <div class="meals-grid">
+      <div class="meal-card am"><div class="meal-header"><span class="meal-emoji">🌅</span><span class="meal-time">Desayuno</span></div><div class="meal-desc">Tostada integral con aceite de oliva + tomate + medio aguacate</div></div>
+      <div class="meal-card pm"><div class="meal-header"><span class="meal-emoji">🍽</span><span class="meal-time">Comida</span></div><div class="meal-desc">Pasta integral con atún al natural + tomate cherry + ensalada de canónigos</div></div>
+      <div class="meal-card ev"><div class="meal-header"><span class="meal-emoji">🌙</span><span class="meal-time">Cena</span></div><div class="meal-desc">Revuelto de espárragos trigueros y champiñones + pan integral + 1 fruta</div></div>
+    </div>
+  </div>
+
+  <div id="day-sab" class="day-content">
+    <div class="day-top"><div><div class="day-name">Sábado</div><div class="day-tag">Dorada + conejo</div></div></div>
+    <div class="meals-grid">
+      <div class="meal-card am"><div class="meal-header"><span class="meal-emoji">🌅</span><span class="meal-time">Desayuno</span></div><div class="meal-desc">Avena con leche + nueces + plátano troceado</div></div>
+      <div class="meal-card pm"><div class="meal-header"><span class="meal-emoji">🍽</span><span class="meal-time">Comida</span></div><div class="meal-desc">Dorada al horno con patatas panaderas + ensalada mediterránea con aceitunas</div></div>
+      <div class="meal-card ev"><div class="meal-header"><span class="meal-emoji">🌙</span><span class="meal-time">Cena</span></div><div class="meal-desc">Conejo guisado con verduras (cebolla, zanahoria, tomate) + 1 fruta</div></div>
+    </div>
+  </div>
+
+  <div id="day-dom" class="day-content">
+    <div class="day-top"><div><div class="day-name">Domingo</div><div class="day-tag">Alubias + sardinas</div></div></div>
+    <div class="meals-grid">
+      <div class="meal-card am"><div class="meal-header"><span class="meal-emoji">🌅</span><span class="meal-time">Desayuno</span></div><div class="meal-desc">Tostada integral con jamón serrano (sin tocino) + tomate + aceite de oliva</div></div>
+      <div class="meal-card pm"><div class="meal-header"><span class="meal-emoji">🍽</span><span class="meal-time">Comida</span></div><div class="meal-desc">Alubias blancas con verduras (puerro, zanahoria, espinacas) + ensalada + 1 fruta</div></div>
+      <div class="meal-card ev"><div class="meal-header"><span class="meal-emoji">🌙</span><span class="meal-time">Cena</span></div><div class="meal-desc">Sardinas a la plancha con limón + ensalada de tomate y cebolla + pan integral</div></div>
+    </div>
+  </div>
+
+  <!-- SECTION 02: EVITAR + TIPS -->
+  <div class="sec-hdr">
+    <span class="sec-num">02</span>
+    <span class="sec-title">Qué evitar + tips de cocina</span>
+    <div class="sec-line"></div>
+  </div>
+
+  <div class="bottom-grid">
+    <div class="avoid-block">
+      <div class="block-title">🚫 Evitar</div>
+      <div class="avoid-item"><div class="avoid-dot"></div>Embutidos grasos (chorizo, salchichón, bacon, fuet)</div>
+      <div class="avoid-item"><div class="avoid-dot"></div>Bollería y pastelería industrial</div>
+      <div class="avoid-item"><div class="avoid-dot"></div>Fritos y precocinados (croquetas, empanadas)</div>
+      <div class="avoid-item"><div class="avoid-dot"></div>Refrescos con azúcar y zumos envasados</div>
+      <div class="avoid-item"><div class="avoid-dot"></div>Mantequilla, margarina, nata, mayonesa</div>
+      <div class="avoid-item"><div class="avoid-dot"></div>Carnes grasas (cerdo, cordero muy graso)</div>
+      <div class="avoid-item"><div class="avoid-dot"></div>Frutos secos fritos y salados</div>
+      <div class="avoid-item"><div class="avoid-dot"></div>Alcohol</div>
+    </div>
+    <div class="tips-block">
+      <div class="block-title">✅ Tips de cocina</div>
+      <div class="tip-item"><div class="tip-dot"></div>Cocina al horno, plancha, vapor, hervido o papillote</div>
+      <div class="tip-item"><div class="tip-dot"></div>Aceite de oliva virgen extra como grasa principal</div>
+      <div class="tip-item"><div class="tip-dot"></div>Especias y condimentos libres — reducen la sal</div>
+      <div class="tip-item"><div class="tip-dot"></div>Sal yodada y en poca cantidad</div>
+      <div class="tip-item"><div class="tip-dot"></div>Las claras de huevo son libres — aprovéchalas</div>
+      <div class="tip-item"><div class="tip-dot"></div>Frutos secos siempre naturales, sin sal</div>
+      <div class="tip-item"><div class="tip-dot"></div>Bebe al menos 1.5–2 litros de agua al día</div>
+    </div>
+  </div>
+
+  <!-- SECTION 03: TRACKER -->
+  <div class="sec-hdr">
+    <span class="sec-num">03</span>
+    <span class="sec-title">Seguimiento semanal</span>
+    <div class="sec-line"></div>
+  </div>
+
+  <div class="tracker">
+    <div class="tracker-title">✏️ Marca cada día que cumplas</div>
+    <div class="tracker-grid">
+      <div class="tr-header"></div>
+      <div class="tr-header">Lun</div><div class="tr-header">Mar</div><div class="tr-header">Mié</div>
+      <div class="tr-header">Jue</div><div class="tr-header">Vie</div><div class="tr-header">Sáb</div><div class="tr-header">Dom</div>
+
+      <div class="tr-label">🫒 Aceite oliva</div>
+      <div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div>
+      <div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div>
+
+      <div class="tr-label">🥬 2+ verduras</div>
+      <div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div>
+      <div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div>
+
+      <div class="tr-label">🍎 3 frutas</div>
+      <div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div>
+      <div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div>
+
+      <div class="tr-label">🥜 Frutos secos</div>
+      <div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div>
+      <div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div>
+
+      <div class="tr-label">💧 1.5L+ agua</div>
+      <div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div>
+      <div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div>
+
+      <div class="tr-label">🚫 Sin fritos</div>
+      <div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div>
+      <div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div><div class="tr-check"><input type="checkbox" class="cb"></div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-left">
+      <div class="fl"><div class="fl-v">3 comidas/día</div><div class="fl-l">Estructura</div></div>
+      <div class="fl-sep"></div>
+      <div class="fl"><div class="fl-v">AOVE siempre</div><div class="fl-l">Grasa principal</div></div>
+      <div class="fl-sep"></div>
+      <div class="fl"><div class="fl-v">7–8h sueño</div><div class="fl-l">Descanso</div></div>
+      <div class="fl-sep"></div>
+      <div class="fl"><div class="fl-v">Caminar 30'</div><div class="fl-l">Actividad diaria</div></div>
+    </div>
+    <div class="footer-note">Basado en recomendaciones del Hospital Universitario Príncipe de Asturias · Preparado con cariño por Clawdia 🐾</div>
+  </div>
+
+</div>
+
+<script>
+  document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.day-content').forEach(d => d.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById('day-' + tab.dataset.day).classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>
